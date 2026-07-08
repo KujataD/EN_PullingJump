@@ -10,6 +10,8 @@ public class PullingJump : MonoBehaviour
     private Vector2 clickPosition_;
     private Rigidbody rigidbody_;
 
+    private bool canJump_ = false;
+
     void Start()
     {
         // クリック入力の登録
@@ -34,6 +36,22 @@ public class PullingJump : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            canJump_ = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            canJump_ = false;
+        }
+    }
+
     // 左クリックを押したとき
     void OnClick(InputAction.CallbackContext context)
     {
@@ -44,6 +62,8 @@ public class PullingJump : MonoBehaviour
     // 左クリックを離したとき
     public void OnRelease(InputAction.CallbackContext context)
     {
+        if (!canJump_) { return; }
+
         // クリックした座標と離した座標の差分を取得
         Vector2 dist = clickPosition_ - Mouse.current.position.ReadValue();
 
