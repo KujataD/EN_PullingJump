@@ -38,7 +38,19 @@ public class PullingJump : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.collider.CompareTag("Ground"))
+        // 衝突点の情報が複数格納されている
+        ContactPoint[] contacts = collision.contacts;
+        // 0番目の衝突情報から、衝突している点の法線を取得
+        Vector3 otherNormal = contacts[0].normal;
+        // 上方向を示すベクトル。長さは1。
+        Vector3 upVector = new Vector3(0, 1, 0);
+        // 上方向と法線の内積。二つのベクトルはともに長さが1なので、cosBがdotUN変数に入る。
+        float dotUN = Vector3.Dot(upVector, otherNormal);
+        // 内積値に逆三角関数arccosを掛けて角度を算出。それを度数法へ変換する。
+        float dotDeg = Mathf.Acos(dotUN) * Mathf.Rad2Deg;
+        
+        // 二つのベクトルがなす角度が45度より小さければ再びジャンプ可能とする。
+        if (dotDeg <= 45)
         {
             canJump_ = true;
         }
@@ -52,14 +64,12 @@ public class PullingJump : MonoBehaviour
         }
     }
 
-    // 左クリックを押したとき
     void OnClick(InputAction.CallbackContext context)
     {
         //物理移動量を強制的に(0,10,0)に変える。
         clickPosition_ = Mouse.current.position.ReadValue();
     }
 
-    // 左クリックを離したとき
     public void OnRelease(InputAction.CallbackContext context)
     {
         if (!canJump_) { return; }
