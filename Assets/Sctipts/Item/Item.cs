@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+
+    private Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    } 
+    
     void SelfDestroy()
     {
         Destroy(gameObject);
@@ -9,6 +17,6 @@ public class Item : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        SelfDestroy();   
+        animator.SetTrigger("Get");     
     }
 }
