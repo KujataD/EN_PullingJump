@@ -4,12 +4,14 @@ public class Item : MonoBehaviour
 {
 
     private Animator animator;
+    private AudioSource audioSource;
 
     void Start()
     {
         animator = GetComponent<Animator>();
-    } 
-    
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void SelfDestroy()
     {
         Destroy(gameObject);
@@ -17,6 +19,11 @@ public class Item : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        animator.SetTrigger("Get");     
+        animator.SetTrigger("Get");
+        
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
     }
 }
