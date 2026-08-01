@@ -52,7 +52,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "Select",
                     "type": "Button",
                     "id": "f1ba0d36-48eb-4cd5-b651-1c94a6531f70",
                     "expectedControlType": "",
@@ -391,7 +391,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Jump",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -402,7 +402,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Jump",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -413,7 +413,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Jump",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
